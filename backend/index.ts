@@ -18,10 +18,15 @@ async function bootstrap() {
 
     server.listen(PORT, () => {
         console.log(`🚀 Server running on port http://localhost:${PORT}`);
-        // TODO: Uncomment when blockchain listener is enabled
+        // TODO: Uncomment when blockchain listener is event is implemented
         // console.log(`📡 Listening to blockchain events...`);
         console.log(`📡 Listening to socket events...`);
     });
+
+    // Log environment variables in development mode
+    if (process.env.NODE_ENV === "development") {
+        console.log("envs", envConfig);
+    }
 
     // Graceful shutdown
     process.on("SIGINT", async () => {
