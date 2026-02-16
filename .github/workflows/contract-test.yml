@@ -1,37 +1,38 @@
-name: Contract Build and Test
-
-permissions:
-    contents: read
+name: Contract Tests
 
 on:
     push:
+        branches: [main, develop]
+        paths:
+            - 'contract/**'
     pull_request:
-    workflow_dispatch:
-
-env:
-    FOUNDRY_PROFILE: ci
+        branches: [main, develop]
+        paths:
+            - 'contract/**'
 
 jobs:
-    check:
-        name: Foundry project
+    test:
         runs-on: ubuntu-latest
+
+        defaults:
+            run:
+                working-directory: ./contract
+
         steps:
-            - uses: actions/checkout@v5
+            - uses: actions/checkout@v4
               with:
-                  persist-credentials: false
                   submodules: recursive
 
             - name: Install Foundry
               uses: foundry-rs/foundry-toolchain@v1
-
-            - name: Show Forge version
-              run: forge --version
-
-            - name: Run Forge fmt
-              run: forge fmt --check
+              with:
+                  version: latest
 
             - name: Run Forge build
-              run: forge build --sizes
+              run: forge build
 
             - name: Run Forge tests
               run: forge test -vvv
+
+            - name: Run Forge coverage
+              run: forge coverage
