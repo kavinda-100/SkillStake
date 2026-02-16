@@ -14,7 +14,7 @@ async function bootstrap() {
 	initSocket(server);
 
 	// Start blockchain listener
-	// TODO: Uncomment the line below to start listening to blockchain events once contract are implemented
+	// TODO: Uncomment the line below to start listening to blockchain events once contract are implemented and deployed
 	// startBlockchainListener();
 
 	server.listen(PORT, () => {
