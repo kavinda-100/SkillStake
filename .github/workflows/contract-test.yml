@@ -25,12 +25,22 @@ jobs:
 
             - name: Install Foundry
               uses: foundry-rs/foundry-toolchain@v1
+              with:
+                  cache: true
+
+            - name: Check formatting
+              run: forge fmt --check
+
+            - name: Run linter
+              run: forge lint
 
             - name: Run Forge build
               run: forge build
 
             - name: Run Forge tests
               run: forge test -vvv
+              env:
+                  FOUNDRY_PROFILE: ci
 
             - name: Run Forge coverage
               run: forge coverage
