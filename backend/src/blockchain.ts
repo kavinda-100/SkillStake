@@ -8,16 +8,15 @@ import { envConfig } from "../env";
 
 const publicClient = createPublicClient({
     chain: envConfig.NODE_ENV === "production" ? sepolia : anvil,
-    transport: webSocket(process.env.RPC_WEB_SOCKET_URL),
+    transport: webSocket(envConfig.RPC_WEB_SOCKET_URL),
 });
 
 export function startBlockchainListener() {
     console.log("Listening to contract events...");
 
     publicClient.watchContractEvent({
-        address: process.env.CONTRACT_ADDRESS as `0x${string}`,
+        address: envConfig.CONTRACT_ADDRESS as `0x${string}`,
         abi: ABI.abi,
-        fromBlock: 0n,
         eventName: "ChallengeCreated",
         onLogs: async (logs) => {
             for (const log of logs) {

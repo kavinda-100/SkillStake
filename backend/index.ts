@@ -18,7 +18,8 @@ async function bootstrap() {
 
     server.listen(PORT, () => {
         console.log(`🚀 Server running on port http://localhost:${PORT}`);
-        console.log(`📡 Listening to blockchain events...`);
+        // TODO: Uncomment when blockchain listener is enabled
+        // console.log(`📡 Listening to blockchain events...`);
         console.log(`📡 Listening to socket events...`);
     });
 
