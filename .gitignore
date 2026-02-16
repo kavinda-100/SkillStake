@@ -1,0 +1,16 @@
+node_modules/
+dist/
+build/
+.env
+.DS_Store
+*.log
+.idea/
+coverage/
+*.tsbuildinfo
+*.bak
+*.tmp
+*.swp
+*.swo
+*.zip
+*.tar.gz
+*.tgz
