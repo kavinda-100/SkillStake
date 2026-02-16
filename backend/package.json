@@ -9,9 +9,17 @@
 		"build": "bun install"
 	},
 	"devDependencies": {
+		"@eslint/js": "^10.0.1",
 		"@types/bun": "latest",
 		"@types/cors": "^2.8.19",
-		"@types/express": "^5.0.6"
+		"@types/express": "^5.0.6",
+		"eslint": "^10.0.0",
+		"eslint-config-prettier": "^10.1.8",
+		"eslint-plugin-prettier": "^5.5.5",
+		"globals": "^17.3.0",
+		"jiti": "^2.6.1",
+		"prettier": "^3.8.1",
+		"typescript-eslint": "^8.55.0"
 	},
 	"peerDependencies": {
 		"typescript": "^5"
