@@ -1,0 +1,36 @@
+# Development environment overrides
+version: '3.8'
+
+services:
+    backend:
+        build:
+            target: development
+        develop:
+            watch:
+                - action: sync
+                  path: ./backend
+                  target: /app
+                  ignore:
+                      - node_modules/
+                      - .git/
+                      - .env
+                      - '*.log'
+                - action: rebuild
+                  path: ./backend/package.json
+
+    frontend:
+        build:
+            target: development
+        develop:
+            watch:
+                - action: sync
+                  path: ./frontend
+                  target: /app
+                  ignore:
+                      - node_modules/
+                      - .next/
+                      - .git/
+                      - .env
+                      - '*.log'
+                - action: rebuild
+                  path: ./frontend/package.json

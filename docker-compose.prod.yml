@@ -1,0 +1,17 @@
+# Production environment overrides
+version: '3.8'
+
+services:
+    backend:
+        build:
+            target: production
+        restart: always
+        environment:
+            NODE_ENV: production
+
+    frontend:
+        build:
+            target: production
+        restart: always
+        environment:
+            NODE_ENV: production
