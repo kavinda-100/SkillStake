@@ -1,4 +1,4 @@
-.PHONY: help dev dev-build dev-down prod prod-build prod-down logs clean
+.PHONY: help dev dev-build dev-down prod prod-build prod-down logs logs-backend logs-frontend clean
 
 # Default target
 help:
@@ -16,6 +16,8 @@ help:
 	@echo ""
 	@echo "Utilities:"
 	@echo "  make logs       - View all logs"
+	@echo "  make logs-backend - View backend logs only"
+	@echo "  make logs-frontend - View frontend logs only"
 	@echo "  make clean      - Remove all containers, networks, and images"
 
 # Development commands

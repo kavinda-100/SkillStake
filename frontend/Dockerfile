@@ -26,6 +26,16 @@ ENV NODE_ENV=development
 
 CMD [ "bun", "run", "dev" ]
 
+# Build stage
+FROM oven/bun:latest AS builder
+
+WORKDIR /app
+
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+
+RUN bun run build
+
 # Production dependencies stage
 FROM oven/bun:latest AS prod-deps
 
@@ -44,12 +54,20 @@ WORKDIR /app
 # Copy only production dependencies
 COPY --from=prod-deps /app/node_modules ./node_modules
 
-# Copy source code (Bun runs TypeScript natively)
-COPY . .
+# Copy built application from builder stage
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/public ./public
+
+# Copy necessary config files
+COPY --from=builder /app/next.config.ts ./next.config.ts
+COPY --from=builder /app/package.json ./package.json
 
 EXPOSE 3000
 
 ENV NODE_ENV=production
+
+RUN addgroup --system appgroup && adduser --system --ingroup appgroup appuser
+USER appuser
 
 CMD [ "bun", "run", "start" ]
 

@@ -9,7 +9,6 @@ This project uses a multi-file Docker Compose configuration for different enviro
 ├── docker-compose.dev.yml   # Development overrides
 ├── docker-compose.prod.yml  # Production overrides
 ├── Makefile                 # Quick commands
-└── docker.sh                # Alternative shell script
 ```
 
 ## 🚀 Quick Start
