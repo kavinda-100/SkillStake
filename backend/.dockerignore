@@ -1,0 +1,20 @@
+# dependencies
+node_modules
+
+# production build
+dist
+build
+
+# misc
+.DS_Store
+*.log
+
+# editor directories and files
+.vscode
+.idea
+*.sublime-project
+*.sublime-workspace
+
+# git
+.git
+.gitignore

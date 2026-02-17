@@ -1,0 +1,35 @@
+# Base configuration shared across all environments
+services:
+    # Backend API
+    backend:
+        build:
+            context: ./backend
+            dockerfile: Dockerfile
+        container_name: skillstake-backend
+        restart: unless-stopped
+        ports:
+            - '5000:5000'
+        env_file:
+            - ./backend/.env
+        networks:
+            - skillstake-network
+
+    # Frontend Web App
+    frontend:
+        build:
+            context: ./frontend
+            dockerfile: Dockerfile
+        container_name: skillstake-frontend
+        restart: unless-stopped
+        ports:
+            - '3000:3000'
+        env_file:
+            - ./frontend/.env
+        depends_on:
+            - backend
+        networks:
+            - skillstake-network
+
+networks:
+    skillstake-network:
+        driver: bridge
