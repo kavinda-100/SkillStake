@@ -41,7 +41,8 @@ FROM oven/bun:latest AS builder
 
 WORKDIR /app
 
-COPY --from=prod-deps /app/node_modules ./node_modules
+# Copy ALL dependencies (including devDependencies) for build
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 RUN bun run build
