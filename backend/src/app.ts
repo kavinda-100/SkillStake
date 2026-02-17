@@ -13,7 +13,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req: Request, res: Response) => {
-    res.status(200).json({ message: "Hello from the Skill Stake backend! 👋" });
+    res.status(200).json({
+        message: "Hello from the Skill Stake backend! 👋👋",
+    });
 });
 
 export default app;
