@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+    # Backend API
+    backend:
+        build:
+            context: ./backend
+            dockerfile: Dockerfile
+            target: development
+        container_name: skillstake-backend
+        restart: unless-stopped
+        ports:
+            - '5000:5000'
+        env_file:
+            - ./backend/.env
+        networks:
+            - skillstake-network
+        develop:
+            watch:
+                - action: sync
+                  path: ./backend
+                  target: /app
+                  ignore:
+                      - node_modules/
+                      - .git/
+                      - .env
+                      - '*.log'
+                - action: rebuild
+                  path: ./backend/package.json
+
+    # Frontend Web App
+    frontend:
+        build:
+            context: ./frontend
+            dockerfile: Dockerfile
+            target: development
+        container_name: skillstake-frontend
+        restart: unless-stopped
+        ports:
+            - '3000:3000'
+        env_file:
+            - ./frontend/.env
+        depends_on:
+            - backend
+        networks:
+            - skillstake-network
+        develop:
+            watch:
+                - action: sync
+                  path: ./frontend
+                  target: /app
+                  ignore:
+                      - node_modules/
+                      - .next/
+                      - .git/
+                      - .env
+                      - '*.log'
+                - action: rebuild
+                  path: ./frontend/package.json
+
+networks:
+    skillstake-network:
+        driver: bridge
