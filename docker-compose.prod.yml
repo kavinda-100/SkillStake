@@ -1,15 +1,32 @@
-# Production environment overrides
 services:
     backend:
-        build:
-            target: production
+        image: kavinda100/skillstake-backend:latest
+        # Remove the build section entirely
         restart: always
+        env_file:
+            - ./backend/.env
         environment:
-            NODE_ENV: production
+            - NODE_ENV=production
+        ports:
+            - '5000:5000'
+        networks:
+            - skillstake-network
 
     frontend:
-        build:
-            target: production
+        image: kavinda100/skillstake-frontend:latest
+        # Remove the build section entirely
         restart: always
+        env_file:
+            - ./frontend/.env
         environment:
-            NODE_ENV: production
+            - NODE_ENV=production
+        ports:
+            - '3000:3000'
+        networks:
+            - skillstake-network
+        depends_on:
+            - backend
+
+networks:
+    skillstake-network:
+        driver: bridge

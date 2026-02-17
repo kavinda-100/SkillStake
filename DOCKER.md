@@ -48,11 +48,12 @@ docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d
 
 ### Production
 
-| Command           | Description                         |
-| ----------------- | ----------------------------------- |
-| `make prod`       | Start production (detached)         |
-| `make prod-build` | Rebuild images and start production |
-| `make prod-down`  | Stop production environment         |
+| Command           | Description                             |
+| ----------------- | --------------------------------------- |
+| `make prod`       | Start production (detached)             |
+| `make prod-build` | Rebuild images and start production     |
+| `make prod-pull`  | Pull latest images and start production |
+| `make prod-down`  | Stop production environment             |
 
 ### Utilities
 
@@ -111,6 +112,64 @@ The development environment uses Docker Compose's `watch` feature:
 - **File changes**: Automatically synced to container (instant)
 - **Package.json changes**: Triggers container rebuild
 - **Ignored files**: `node_modules/`, `.next/`, `.git/`, `.env`, `*.log`
+
+## 🚢 Using Pre-built Images (Production)
+
+The production setup uses pre-built images from Docker Hub instead of building locally.
+
+### Pull Latest Images
+
+```bash
+# Pull latest images
+make prod-pull
+
+# Or manually
+docker compose -f docker-compose.yml -f docker-compose.prod.yml pull
+```
+
+### Available Images
+
+- Backend: `kavinda100/skillstake-backend:latest`
+- Frontend: `kavinda100/skillstake-frontend:latest`
+
+### Deploy to Production Server
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/kavinda-100/SkillStake.git
+cd SkillStake
+```
+
+2. Create environment files:
+
+```bash
+cp .env.example backend/.env
+cp .env.example frontend/.env
+# Edit the .env files with production values
+```
+
+3. Pull and start services:
+
+```bash
+make prod-pull
+```
+
+4. Verify deployment:
+
+```bash
+docker compose -f docker-compose.yml -f docker-compose.prod.yml ps
+```
+
+### Update to Latest Version
+
+```bash
+# Pull latest images
+docker compose -f docker-compose.yml -f docker-compose.prod.yml pull
+
+# Restart services with new images
+docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+```
 
 ## 🏭 Production Deployment
 

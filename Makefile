@@ -12,6 +12,7 @@ help:
 	@echo "Production:"
 	@echo "  make prod       - Start production (detached)"
 	@echo "  make prod-build - Rebuild and start production"
+	@echo "  make prod-pull  - Pull latest images and start production"
 	@echo "  make prod-down  - Stop production environment"
 	@echo ""
 	@echo "Utilities:"
@@ -36,6 +37,10 @@ prod:
 
 prod-build:
 	docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+
+prod-pull:
+    docker compose -f docker-compose.yml -f docker-compose.prod.yml pull
+    docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d
 
 prod-down:
 	docker compose -f docker-compose.yml -f docker-compose.prod.yml down
