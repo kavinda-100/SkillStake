@@ -1,6 +1,4 @@
 # Base configuration shared across all environments
-version: '3.8'
-
 services:
     # Backend API
     backend:

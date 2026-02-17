@@ -1,6 +1,4 @@
 # Production environment overrides
-version: '3.8'
-
 services:
     backend:
         build:
