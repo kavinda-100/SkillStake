@@ -26,16 +26,6 @@ ENV NODE_ENV=development
 
 CMD [ "bun", "run", "dev" ]
 
-# Build stage
-FROM oven/bun:latest AS builder
-
-WORKDIR /app
-
-COPY --from=deps /app/node_modules ./node_modules
-COPY . .
-
-RUN bun run build
-
 # Production dependencies stage
 FROM oven/bun:latest AS prod-deps
 
@@ -45,6 +35,16 @@ COPY package.json bun.lock ./
 
 # Install only production dependencies
 RUN bun install --frozen-lockfile --production
+
+# Build stage
+FROM oven/bun:latest AS builder
+
+WORKDIR /app
+
+COPY --from=prod-deps /app/node_modules ./node_modules
+COPY . .
+
+RUN bun run build
 
 # Production stage
 FROM oven/bun:latest AS production
