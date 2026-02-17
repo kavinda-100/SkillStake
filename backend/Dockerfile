@@ -51,8 +51,5 @@ EXPOSE 5000
 
 ENV NODE_ENV=production
 
-RUN addgroup --system appgroup && adduser --system --ingroup appgroup appuser
-USER appuser
-
 CMD [ "bun", "run", "start" ]
 
